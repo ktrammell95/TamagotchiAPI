@@ -139,6 +139,10 @@ namespace TamagotchiAPI.Controllers
         // In the sample URL above it is the `5`. The "{id} in the [HttpDelete("{id}")] is what tells dotnet
         // to grab the id from the URL. It is then made available to us as the `id` argument to the method.
         //
+
+
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePet(int id)
         {
@@ -164,6 +168,24 @@ namespace TamagotchiAPI.Controllers
         private bool PetExists(int id)
         {
             return _context.Pets.Any(pet => pet.Id == id);
+        }
+
+        [HttpPost("{id}/Feedings")]
+        public async Task<ActionResult<Feeding>> CreateFeedingForPet(int id, Feeding feeding)
+        {
+            var pet = await _context.Pets.FindAsync(id);
+
+            if (pet == null)
+            {
+                return NotFound();
+            }
+
+            feeding.PetId = pet.Id;
+
+            _context.Feedings.Add(feeding);
+            await _context.SaveChangesAsync();
+
+            return Ok(feeding);
         }
     }
 }
