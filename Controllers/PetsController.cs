@@ -190,5 +190,41 @@ namespace TamagotchiAPI.Controllers
 
             return Ok(feeding);
         }
+
+        [HttpPost("{id}/PlayTimes")]
+        public async Task<ActionResult<PlayTime>> CreatePlayTimeForPet(int id, PlayTime playTime)
+        {
+            var pet = await _context.Pets.FindAsync(id);
+
+            if (pet == null)
+            {
+                return NotFound();
+            }
+
+            playTime.PetId = pet.Id;
+
+            _context.PlayTimes.Add(playTime);
+            await _context.SaveChangesAsync();
+
+            return Ok(playTime);
+        }
+
+        [HttpPost("{id}/Scoldings")]
+        public async Task<ActionResult<Scolding>> CreateScoldingForPet(int id, Scolding scolding)
+        {
+            var pet = await _context.Pets.FindAsync(id);
+
+            if (pet == null)
+            {
+                return NotFound();
+            }
+
+            scolding.PetId = pet.Id;
+
+            _context.Scoldings.Add(scolding);
+            await _context.SaveChangesAsync();
+
+            return Ok(scolding);
+        }
     }
 }
