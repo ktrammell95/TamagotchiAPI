@@ -15,6 +15,9 @@ namespace TamagotchiAPI.Models
 
         // Add database tables here
         public DbSet<Pet> Pets { get; set; }
+        public DbSet<Feeding> Feedings { get; set; }
+        public DbSet<Scolding> Scoldings { get; set; }
+        public DbSet<PlayTime> PlayTimes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (LOG_SQL_STATEMENTS_IN_DEVELOPMENT && Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
