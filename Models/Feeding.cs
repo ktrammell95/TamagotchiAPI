@@ -8,7 +8,7 @@ namespace TamagotchiAPI.Models
         public DateTime When { get; set; }
         public int PetId { get; set; }
 
-        public Pet Pet { get; set; }
+        // public Pet Pet { get; set; }
 
     }
 }
