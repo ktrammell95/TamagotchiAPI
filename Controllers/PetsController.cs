@@ -143,9 +143,6 @@ namespace TamagotchiAPI.Controllers
         // to grab the id from the URL. It is then made available to us as the `id` argument to the method.
         //
 
-
-
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePet(int id)
         {
@@ -184,6 +181,10 @@ namespace TamagotchiAPI.Controllers
             }
 
             feeding.PetId = pet.Id;
+            var updateHappiness = pet.HappinessLevel + 3;
+            pet.HappinessLevel = updateHappiness;
+            var updateHunger = pet.HungerLevel - 5;
+            pet.HungerLevel = updateHunger;
 
             _context.Feedings.Add(feeding);
             await _context.SaveChangesAsync();
@@ -202,6 +203,10 @@ namespace TamagotchiAPI.Controllers
             }
 
             playTime.PetId = pet.Id;
+            var updateHappiness = pet.HappinessLevel + 5;
+            pet.HappinessLevel = updateHappiness;
+            var updateHunger = pet.HungerLevel + 3;
+            pet.HungerLevel = updateHunger;
 
             _context.PlayTimes.Add(playTime);
             await _context.SaveChangesAsync();
@@ -220,6 +225,8 @@ namespace TamagotchiAPI.Controllers
             }
 
             scolding.PetId = pet.Id;
+            var updateHappiness = pet.HappinessLevel - 5;
+            pet.HappinessLevel = updateHappiness;
 
             _context.Scoldings.Add(scolding);
             await _context.SaveChangesAsync();
